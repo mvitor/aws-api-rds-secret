@@ -1,8 +1,8 @@
 # create a zip of your deployment with terraform
 data "archive_file" "api_dist_zip" {
   type        = "zip"
-  source_dir = "${path.root}/${var.api_dist}"
-  output_path = "${path.root}/${var.api_dist}.zip"
+  source_dir = "../${path.root}/${var.api_dist}"
+  output_path = "../${path.root}/${var.api_dist}.zip"
 }
 resource "aws_s3_bucket" "dist_bucket" {
   bucket = "${var.namespace}-elb-dist"
