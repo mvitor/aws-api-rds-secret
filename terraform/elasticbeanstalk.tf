@@ -1,4 +1,3 @@
-
 # key pair
 resource "aws_key_pair" "app" {
   key_name = "app-prod" 
@@ -38,12 +37,7 @@ resource "aws_elastic_beanstalk_application_version" "app-prod" {
     command = "aws --region ${var.AWS_REGION} elasticbeanstalk update-environment --environment-name app-prod --version-label ${aws_elastic_beanstalk_application_version.app-prod.name}"
   }
 }
-output "app_version" {
-  value = "${aws_elastic_beanstalk_application_version.app-prod.name}"
-}
-output "env_name" {
-  value = "${var.env}"
-}
+
 
 resource "aws_elastic_beanstalk_environment" "app-prod" {
   name = "app-prod"
@@ -131,16 +125,6 @@ setting {
     name = "RollingUpdateType"
     value = "Health"
   }
-# setting {
-#     namespace = "aws:elasticbeanstalk:environment"
-#     name      = "LoadBalancerType"
-#     value     = "${var.environmentType == "UseLoadBalancer" ? "application": "classic"}"
-# # }
-#  setting {
-#     namespace = "aws:elasticbeanstalk:environment"
-#     name      = "LoadBalancerType"
-#     value     = "application"
-#   }
   # LB healthcheck
   setting {
     namespace = "${var.environmentType == "UseLoadBalancer" ? "aws:elb:healthcheck" : "aws:elasticbeanstalk:environment"}"
@@ -191,7 +175,6 @@ setting {
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name = "RDS_DATABASE"
-   # value = "mydb"
     value = "${aws_db_instance.rds-mysqldb.name}"
   }
   setting {
@@ -205,9 +188,3 @@ setting {
     value = "${var.AWS_REGION}"
   }
 }
-
-# resource "null_resource" "update-app" {
-#   provisioner "local-exec" {
-#     command = "aws --region ${var.AWS_REGION} elasticbeanstalk update-environment --environment-name app-prod --version-label ${aws_elastic_beanstalk_application_version.app-prod.name}"
-#   }
-# }

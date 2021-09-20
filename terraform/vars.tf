@@ -88,7 +88,7 @@ variable "as_upper_threshold" {
   description = "If the measurement is higher than this number for the breach duration, a trigger is fired."
 }
 variable "port" {
-  default = "3000"
+  default = "8080"
   description = "The instance port"
 }
 variable "ssl_certificate_id" {
@@ -96,7 +96,7 @@ variable "ssl_certificate_id" {
   description = "ARN of an SSL certificate to bind to the listener."
 }
 variable "healthcheck_url" {
-  default = "HTTP:3000/healthcheck"
+  default = "HTTP:8080/healthcheck"
   description = "The path to which to send health check requests."
 }
 variable "healthcheck_healthy_threshold" {
